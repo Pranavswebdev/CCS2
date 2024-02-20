@@ -1,6 +1,0 @@
-projectKey=Nextjs13
-serverUrl=http://localhost:9000
-serverVersion=8.9.10.61524
-dashboardUrl=http://localhost:9000/dashboard?id=Nextjs13
-ceTaskId=AY3A5PGYpdB1QeNgV1C5
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AY3A5PGYpdB1QeNgV1C5
