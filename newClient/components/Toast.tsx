@@ -3,11 +3,11 @@ import React from "react";
 interface IToast {
 
   showToast:boolean
-  setShowToast:boo
+  setShowToast:React.Dispatch<React.SetStateAction<boolean>>
 
 }
 
-const Toast = ({ showToast, setShowToast }) => {
+const Toast:React.FC<IToast> = ({ showToast, setShowToast }) => {
   return (
     <div
       id="toast-top-right"
