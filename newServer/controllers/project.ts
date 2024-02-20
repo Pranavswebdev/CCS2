@@ -4,14 +4,6 @@ const Task = require("../models/tasks.ts");
 import { Request, Response, RequestHandler } from "express";
 import { IUser } from "../types";
 
-// interface AuthenticatedRequest extends Request {
-//   user?: {
-//     name: string;
-//     email: string;
-//     _id: string;
-//   };
-// }
-
 declare global {
   namespace Express {
     interface Request {

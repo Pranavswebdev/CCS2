@@ -2,13 +2,11 @@ export interface CreateUserRequestBody {
   email: string;
   name: string;
   password: string;
-
 }
 
 export interface LoginUserRequestBody {
   email: string;
   password: string;
-
 }
 
 export interface IUser {

@@ -5,25 +5,25 @@ const projectSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      required: true ,
+      required: true,
     },
     description: {
       type: String,
-   
     },
     admin: {
       type: ObjectId,
-      ref:"User",
+      ref: "User",
       required: true,
     },
 
-    tasks: [ {
-      type: ObjectId,
-      ref:"Task",
-}]
-
+    tasks: [
+      {
+        type: ObjectId,
+        ref: "Task",
+      },
+    ],
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model('Project', projectSchema);
+module.exports = mongoose.model("Project", projectSchema);

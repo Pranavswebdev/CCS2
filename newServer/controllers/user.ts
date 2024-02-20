@@ -39,13 +39,13 @@ exports.loginUser = async (req: Request, res: Response) => {
         const jwtSecretKey: Secret = process.env.JWT_SECRET || "";
 
         let data = {
-          user: {name:user.name,email:user.email,_id:user._id},
+          user: { name: user.name, email: user.email, _id: user._id },
         };
         let token = jwt.sign(data, jwtSecretKey);
 
         res.status(200).json({
           message: "Login Success",
-          user:  {name:user.name,email:user.email},
+          user: { name: user.name, email: user.email },
           token,
           success: true,
         });

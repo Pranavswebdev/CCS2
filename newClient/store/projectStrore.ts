@@ -1,44 +1,35 @@
-import { create } from 'zustand'
-import {Project} from '../interfaces'
+import { create } from "zustand";
+import { Project } from "../interfaces";
 
-    
+type Store = {
+  currentProject: Project;
+  projects: Project[];
+  setCurrentProject: (currentProject: Project) => void;
+  addProject: (newProject: Project) => void;
+  setProjects: (projects: Project[]) => void;
+};
 
-  type Store = {
-    currentProject:Project
-    projects: Project[];
-    setCurrentProject:(currentProject: Project) => void;
-    addProject: (newProject: Project) => void;
-    setProjects: (projects: Project[]) => void;
-   
-  };
-
-
- const useStore = create<Store>()((set) => ({
+const useStore = create<Store>()((set) => ({
   currentProject: {} as Project,
   projects: [],
 
-  addProject: (newProject) => {
+  addProject: (newProject: Project) => {
     set((state) => ({
-        projects: [newProject, ...state.projects],
+      projects: [newProject, ...state.projects],
     }));
   },
 
-  setCurrentProject: (currentProject:Project) => {
+  setCurrentProject: (currentProject: Project) => {
     set((state) => ({
       currentProject: currentProject,
     }));
   },
 
-  setProjects: (newProjects:Project[]) => {
+  setProjects: (newProjects: Project[]) => {
     set((state) => ({
-        projects: [...newProjects],
+      projects: [...newProjects],
     }));
   },
+}));
 
- 
-
-
-}))
-
-
-export default useStore
+export default useStore;

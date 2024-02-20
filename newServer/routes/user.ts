@@ -24,10 +24,6 @@ router
   .put(isLoggedIn, updateTask)
   .get(isLoggedIn,getTasks);
 
-// router.route("/project")
-// .get(getTasks)
 
-// router.route("/task")
-// .post(createTask)
 
 export default router;

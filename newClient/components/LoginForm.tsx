@@ -25,7 +25,7 @@ const LoginForm = () => {
         console.log({ res });
 
         localStorage.setItem("token", res.data.token);
-       localStorage.setItem("user",  JSON.stringify(res.data.user) );
+        localStorage.setItem("user", JSON.stringify(res.data.user));
 
         router.push("/projects");
       })

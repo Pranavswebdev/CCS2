@@ -1,12 +1,9 @@
 //@ts-nocheck
 
-export default function authHeader(){
+export default function authHeader() {
+  const token = localStorage.getItem("token");
 
-const token =localStorage.getItem("token")
-
-if(token){
-
-return{Authorization:'Bearer '+token}
-
-}
+  if (token) {
+    return { Authorization: "Bearer " + token };
+  }
 }

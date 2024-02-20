@@ -5,8 +5,6 @@ import { IUser } from "../types";
 //   user?: IUser;
 // }
 
-
-
 export const isLoggedIn: RequestHandler = async (req, res, next) => {
   console.log("Log Checking");
 

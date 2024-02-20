@@ -6,25 +6,27 @@ import React, { useState } from "react";
 import useStore from "@/store/projectStrore";
 import taskApi from "@/apis/taskApi";
 
+interface ITaskModal {
+  showModal: boolean;
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  projectId: String;
+  addTaskHandler: (
+    title: String,
+    description: String,
+    projectId: String
+  ) => void;
+}
 
-  interface ITaskModal {
-    showModal:boolean;
-    setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
-    projectId:String;
-    addTaskHandler:(title:String, description:String, projectId:String) => void;
-
-
-  }
-
-
-   const  Modal:React.FC<ITaskModal> = ({ showModal, setShowModal, projectId,addTaskHandler})=> {
+const Modal: React.FC<ITaskModal> = ({
+  showModal,
+  setShowModal,
+  projectId,
+  addTaskHandler,
+}) => {
   const [title, setTitle] = useState("");
   // const [currentProjectId, setCurrentProjectId] = useState(projectId);
   const [description, setDescription] = useState("");
   const store = useStore();
-
-
-  
 
   return (
     <>
@@ -54,7 +56,6 @@ import taskApi from "@/apis/taskApi";
                       Task Title
                     </label>
                     <input
-                    
                       onChange={(e) => setTitle(e.target.value)}
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       id="username"
@@ -63,17 +64,13 @@ import taskApi from "@/apis/taskApi";
                     />
                   </div>
                   <div className="mb-6">
-                    <label
-                      className="block text-gray-700 text-sm font-bold mb-2"
-                
-                    >
+                    <label className="block text-gray-700 text-sm font-bold mb-2">
                       Task Description
                     </label>
                     <textarea
                       onChange={(e) => setDescription(e.target.value)}
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                       id="password"
-              
                     />
                   </div>
                 </form>
@@ -107,6 +104,6 @@ import taskApi from "@/apis/taskApi";
       ) : null}
     </>
   );
-}
+};
 
-export default  Modal
+export default Modal;

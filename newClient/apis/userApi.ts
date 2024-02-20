@@ -1,7 +1,7 @@
 import axios from "../axios/axios";
 
 const userApi = () => {
-  const signup = ( name:String, password:String, email:String ) => {
+  const signup = (name: String, password: String, email: String) => {
     console.log({ name, password, email });
 
     return new Promise(async (resolve, reject) => {
@@ -16,9 +16,7 @@ const userApi = () => {
 
   const login = ({ email, password }: any) => {
     return new Promise(async (resolve, reject) => {
-
       try {
-        
         const response = await axios.post("/login", { password, email });
 
         resolve(response);

@@ -11,13 +11,12 @@ const Modal: React.FC<ModalProps> = ({ showModal, setShowModal }) => {
   const { addProject } = projectApi();
 
   const addProjectHandler = () => {
-    
     addProject(title, description).then((newProject) => {
       store.addProject({
         _id: newProject._id,
         title: title,
         description: description,
-        tasks:[]
+        tasks: [],
       });
     });
   };
@@ -50,7 +49,7 @@ const Modal: React.FC<ModalProps> = ({ showModal, setShowModal }) => {
                       Project Title
                     </label>
                     <input
-                    required
+                      required
                       onChange={(e) => setTitle(e.target.value)}
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       id="username"
