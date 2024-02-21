@@ -17,7 +17,9 @@ const Project = () => {
   useEffect(() => {
     getProjects().then((projects) => {
       store.setProjects(projects as Project[]);
-    });
+    }); 
+    
+
   }, []);
 
   return (

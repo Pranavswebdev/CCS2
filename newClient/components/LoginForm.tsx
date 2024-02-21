@@ -4,13 +4,14 @@ import { useState } from "react";
 import userApi from "@/apis/userApi";
 import { useRouter } from "next/navigation";
 import { Login } from "@/interfaces";
+import useStore from "@/store/projectStrore";
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const { login } = userApi();
   const router = useRouter();
-
+  const store = useStore();
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -26,6 +27,7 @@ const LoginForm = () => {
 
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("user", JSON.stringify(res.data.user));
+        store.setCurrentUser(res.data.user);
 
         router.push("/projects");
       })

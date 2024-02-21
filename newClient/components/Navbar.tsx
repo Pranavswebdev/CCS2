@@ -2,29 +2,27 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { User } from "../interfaces";
+import useStore from "@/store/projectStrore";
 const Navbar = () => {
   const [currentUser, setCurrentuser] = useState<User | null>(null);
-  const storedUser = localStorage.getItem("user");
-
+  const LocalStorageUser = localStorage.getItem("user");
+  const store = useStore();
+  const storedUser = store.currentuser;
   useEffect(() => {
+    if (storedUser?.name) {
+      console.log("StoredUser");
 
-    if (storedUser) {
-      try {
-        const currentUser = JSON.parse(storedUser);
-        setCurrentuser(currentUser);
-      } catch (error) {
-        console.error("Error parsing JSON:", error);
-      }
-    }else{
+      setCurrentuser(storedUser);
+    } else if (LocalStorageUser) {
+      console.log("lcoal Storage");
 
-setCurrentuser(null)
+      const currentUser = JSON.parse(LocalStorageUser);
+
+      setCurrentuser(currentUser);
+    } else {
+      setCurrentuser(null);
     }
   }, [storedUser]);
-
-
-
-
-
 
   const router = useRouter();
 
@@ -58,20 +56,24 @@ setCurrentuser(null)
         </div>
         <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
           <div className="text-sm lg:flex-grow">
-         {currentUser&&    <a
-              href="/projects"
-              className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
-            >
-              My Projects
-            </a>}
+            {currentUser && (
+              <a
+                href="/projects"
+                className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+              >
+                My Projects
+              </a>
+            )}
           </div>
 
-        {currentUser&&  <button
-            onClick={Logout}
-            className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
-          >
-            {currentUser?.name} - Logout
-          </button>}
+          {currentUser && (
+            <button
+              onClick={Logout}
+              className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
+            >
+              {currentUser?.name} - Logout
+            </button>
+          )}
         </div>
       </nav>
     </>
