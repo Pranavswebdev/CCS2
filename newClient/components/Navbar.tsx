@@ -3,12 +3,28 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { User } from "../interfaces";
 const Navbar = () => {
-  const [currentUser, setCurrentuser] = useState<User | null>();
+  const [currentUser, setCurrentuser] = useState<User | null>(null);
+  const storedUser = localStorage.getItem("user");
 
   useEffect(() => {
-    const currentUser = JSON.parse(localStorage.getItem("user") || "");
-    setCurrentuser(currentUser);
-  }, []);
+
+    if (storedUser) {
+      try {
+        const currentUser = JSON.parse(storedUser);
+        setCurrentuser(currentUser);
+      } catch (error) {
+        console.error("Error parsing JSON:", error);
+      }
+    }else{
+
+setCurrentuser(null)
+    }
+  }, [storedUser]);
+
+
+
+
+
 
   const router = useRouter();
 
@@ -16,7 +32,7 @@ const Navbar = () => {
     console.log("Logout  called");
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-
+    setCurrentuser(null);
     router.push("/");
   };
 
@@ -42,20 +58,20 @@ const Navbar = () => {
         </div>
         <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
           <div className="text-sm lg:flex-grow">
-            <a
+         {currentUser&&    <a
               href="/projects"
               className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
             >
               My Projects
-            </a>
+            </a>}
           </div>
 
-          <button
+        {currentUser&&  <button
             onClick={Logout}
             className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
           >
             {currentUser?.name} - Logout
-          </button>
+          </button>}
         </div>
       </nav>
     </>
