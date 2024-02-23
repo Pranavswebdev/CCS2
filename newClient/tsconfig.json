@@ -22,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/projects/page.js", "app/project/[id]/[projectname]/page.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/projects/page.js", "app/project/[id]/[projectname]/page.tsx", "utils/checkAuth.jsx"],
   "exclude": ["node_modules"]
 }

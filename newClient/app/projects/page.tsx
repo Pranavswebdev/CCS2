@@ -1,26 +1,30 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import ProjectCard from "./components/ProjectCard";
 import ProjectModal from "./components/ProjectModal";
 import useStore from "@/store/projectStrore";
 import projectApi from "@/apis/projectApi ";
 import { Project } from "@/interfaces";
+import Skeleton from "@/components/skeleton";
 // import { Project } from "@/interfaces";
 
 const Project = () => {
   const [showModal, setShowModal] = React.useState(false);
-
+  const [loading, setLoading] = React.useState(true);
   const store = useStore();
   const storeProjects = store.projects;
   const { getProjects } = projectApi();
 
   useEffect(() => {
     getProjects().then((projects) => {
+      setLoading(false);
       store.setProjects(projects as Project[]);
-    }); 
-    
-
+    });
   }, []);
+
+  useLayoutEffect(() => {}, []);
+
+  if (loading) return <Skeleton />;
 
   return (
     <>

@@ -5,6 +5,7 @@ import { ProjectCardProps } from "@/interfaces";
 const ProjectCard: React.FC<ProjectCardProps> = ({ data, index }) => {
   const router = useRouter();
 
+
   return (
     <div
       onClick={() => router.push(`project/${data._id}/${data.title}`)}

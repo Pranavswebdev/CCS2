@@ -12,7 +12,7 @@ declare global {
   }
 }
 
-export const createProject: RequestHandler = async (req, res) => {
+export const createProject: RequestHandler = async (req, res,next) => {
   const { title, description, tasks } = req.body;
 
   try {
@@ -26,15 +26,19 @@ export const createProject: RequestHandler = async (req, res) => {
     }
   } catch (error) {
     console.log(error);
+    next(error)
   }
 };
 
-export const getProjects: RequestHandler = async (req, res) => {
+export const getProjects: RequestHandler = async (req, res,next) => {
   console.log(req.user, "user inside get projects");
 
   const projectId = req.query.projectId;
   let projects = [];
   try {
+
+
+
     if (projectId) {
       projects = await Project.findById(projectId);
     } else {
@@ -42,11 +46,12 @@ export const getProjects: RequestHandler = async (req, res) => {
     }
     res.status(200).json({ message: "Success", projects: projects });
   } catch (error) {
+    next(error)
     console.log(error);
   }
 };
 
-export const createTask: RequestHandler = async (req, res) => {
+export const createTask: RequestHandler = async (req, res,next) => {
   const { title, description, projectId } = req.body;
 
   try {
@@ -64,7 +69,7 @@ export const createTask: RequestHandler = async (req, res) => {
   }
 };
 
-export const getTasks: RequestHandler = async (req, res) => {
+export const getTasks: RequestHandler = async (req, res,next) => {
   const projectId = req.query.projectId;
   console.log(req.query);
   try {
@@ -76,7 +81,7 @@ export const getTasks: RequestHandler = async (req, res) => {
   }
 };
 
-export const updateTask: RequestHandler = async (req, res) => {
+export const updateTask: RequestHandler = async (req, res,next) => {
   const { taskId, status } = req.body;
   console.log({ taskId, status });
   let updatedTask;

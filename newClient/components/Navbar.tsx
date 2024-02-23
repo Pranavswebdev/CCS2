@@ -5,10 +5,14 @@ import { User } from "../interfaces";
 import useStore from "@/store/projectStrore";
 const Navbar = () => {
   const [currentUser, setCurrentuser] = useState<User | null>(null);
-  const LocalStorageUser = localStorage.getItem("user");
+
   const store = useStore();
   const storedUser = store.currentuser;
   useEffect(() => {
+
+
+    const LocalStorageUser = localStorage.getItem("user");
+
     if (storedUser?.name) {
       console.log("StoredUser");
 
@@ -31,6 +35,7 @@ const Navbar = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setCurrentuser(null);
+    store.setCurrentUser({} as User);
     router.push("/");
   };
 

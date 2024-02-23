@@ -5,6 +5,8 @@ import userApi from "@/apis/userApi";
 import { useRouter } from "next/navigation";
 import { Login } from "@/interfaces";
 import useStore from "@/store/projectStrore";
+import { useForm, SubmitHandler } from "react-hook-form";
+
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,9 +14,9 @@ const LoginForm = () => {
   const { login } = userApi();
   const router = useRouter();
   const store = useStore();
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
 
+  const onLogin = (email: String, password: String) => {
+    // e.preventDefault();
     if (!email || !password) {
       setError("Please enter password and email");
       return;
@@ -36,23 +38,59 @@ const LoginForm = () => {
       });
   };
 
+  type Inputs = {
+    email: string;
+    password: string;
+  };
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Inputs>();
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    console.log(data);
+
+    onLogin(data.email, data.password);
+
+    // setShowModal(false);
+  };
+
   return (
     <div className="grid place-items-center h-screen">
       <div className="shadow-lg p-5 rounded-lg border-t-4 w-15">
         <h1 className="text-xl font-bold my-4">Login</h1>
 
-        <form onSubmit={onSubmit} className="flex flex-col gap-3">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
           <input
             className="w-80"
-            onChange={(e) => setEmail(e.target.value)}
+            // onChange={(e) => setEmail(e.target.value)}
+            {...register("email", {
+              required: true,
+            })}
             type="email"
             placeholder="Email"
           />
+          {errors.email && (
+            <span className="text-red-700 font-medium">
+              This field is required
+            </span>
+          )}
           <input
-            onChange={(e) => setPassword(e.target.value)}
+            // onChange={(e) => setPassword(e.target.value)}
             type="password"
             placeholder="Password"
+            {...register("password", {
+              required: true,
+            })}
           />
+          {errors.password && (
+            <span className="text-red-700 font-medium">
+              This field is required
+            </span>
+          )}
           <button className="bg-green-600 text-white font-bold cursor-pointer px-6 py-2">
             Login
           </button>

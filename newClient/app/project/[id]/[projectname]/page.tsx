@@ -2,20 +2,21 @@
 import React, { useEffect, useState } from "react";
 import TaskCard from "@/app/project/[id]/[projectname]/components/TaskCard";
 import TaskModal from "@/app/project/[id]/[projectname]/components/TaskModal";
-import useStore from "@/store/projectStrore";
 import taskApi from "@/apis/taskApi";
-import Toast from "@/components/Toast.tsx";
-import { useRouter } from "next/navigation";
+import Toast from "@/components/Toast";
 import Skeleton from "@/components/skeleton";
+import CheckAuth from "@/utils/checkAuth";
+import { Task } from "@/interfaces";
 
-const ProjectDetails = ({ params }) => {
+const ProjectDetails = ({ params }:any) => {
   const [showModal, setShowModal] = React.useState(false);
-  const [currentTasks, setCurrentTasks] = useState([]);
+  const [currentTasks, setCurrentTasks] = React.useState([]);
   const { getTasks, updateTask, addTask } = taskApi();
   const [showToast, setShowToast] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+
     getTasks(params.id)
       .then((tasks) => {
         // store.setProjects(project);
@@ -26,7 +27,7 @@ const ProjectDetails = ({ params }) => {
       });
   }, []);
 
-  const onStatusChangeHandler = (status, taskId) => {
+  const onStatusChangeHandler = (status:String, taskId:String) => {
     console.log({ status, taskId });
 
     updateTask(status, taskId).then(() => {
@@ -38,7 +39,7 @@ const ProjectDetails = ({ params }) => {
     });
   };
 
-  const addTaskHandler = (title, description, projectId) => {
+  const addTaskHandler = (title:String, description:String, projectId:String) => {
     console.log("Task Handler ");
 
     addTask(title, description, projectId).then((newtask) => {
@@ -90,4 +91,4 @@ const ProjectDetails = ({ params }) => {
   );
 };
 
-export default ProjectDetails;
+export default  ProjectDetails

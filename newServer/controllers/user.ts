@@ -5,10 +5,10 @@
 import bcrypt from "bcryptjs";
 import jwt, { Secret, VerifyOptions } from "jsonwebtoken";
 import User from "../models/user";
-import { Request, Response } from "express";
+import { Request, Response,RequestHandler } from "express";
 import { CreateUserRequestBody, LoginUserRequestBody } from "../types";
 
-exports.createUser = async (req: Request, res: Response) => {
+export const createUser:RequestHandler = async (req, res,next) => {
   const { email, name, password }: CreateUserRequestBody = req.body;
 
   console.log({ email, name, password });
@@ -19,11 +19,12 @@ exports.createUser = async (req: Request, res: Response) => {
     await userSchema.save();
     res.status(200).json({ message: "Success" });
   } catch (error) {
+    next (error)
     console.log("Connecting Error", error);
   }
 };
 
-exports.loginUser = async (req: Request, res: Response) => {
+export const loginUser:RequestHandler = async (req, res) => {
   const { email, password }: LoginUserRequestBody = req.body;
   console.log({ email, password });
 

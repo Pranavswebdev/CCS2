@@ -5,6 +5,9 @@ import Switch from "../components/Switch";
 import { ITaskCard } from "@/interfaces";
 
 const TaskCard: React.FC<ITaskCard> = ({ task, onStatusChangeHandler }) => {
+
+
+  
   console.log(task, "task");
   return (
     <div className="max-w-sm  m-3 rounded overflow-hidden shadow-lg border-black-400">
