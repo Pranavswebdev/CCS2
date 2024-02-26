@@ -8,7 +8,8 @@ import Skeleton from "@/components/skeleton";
 import CheckAuth from "@/utils/checkAuth";
 import { Task } from "@/interfaces";
 
-const ProjectDetails = ({ params }:any) => {
+
+const ProjectDetails = ({ params }: any) => {
   const [showModal, setShowModal] = React.useState(false);
   const [currentTasks, setCurrentTasks] = React.useState([]);
   const { getTasks, updateTask, addTask } = taskApi();
@@ -16,7 +17,6 @@ const ProjectDetails = ({ params }:any) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-
     getTasks(params.id)
       .then((tasks) => {
         // store.setProjects(project);
@@ -27,7 +27,7 @@ const ProjectDetails = ({ params }:any) => {
       });
   }, []);
 
-  const onStatusChangeHandler = (status:String, taskId:String) => {
+  const onStatusChangeHandler = (status: String, taskId: String) => {
     console.log({ status, taskId });
 
     updateTask(status, taskId).then(() => {
@@ -39,7 +39,11 @@ const ProjectDetails = ({ params }:any) => {
     });
   };
 
-  const addTaskHandler = (title:String, description:String, projectId:String) => {
+  const addTaskHandler = (
+    title: String,
+    description: String,
+    projectId: String
+  ) => {
     console.log("Task Handler ");
 
     addTask(title, description, projectId).then((newtask) => {
@@ -79,7 +83,7 @@ const ProjectDetails = ({ params }:any) => {
         {currentTasks?.map((elem, index) => (
           <TaskCard
             onStatusChangeHandler={onStatusChangeHandler}
-            key={elem?._id}
+            key={index}
             index={index}
             task={elem}
           />
@@ -91,4 +95,4 @@ const ProjectDetails = ({ params }:any) => {
   );
 };
 
-export default  ProjectDetails
+export default  ProjectDetails ;

@@ -1,19 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
+import useStore from "@/store/projectStrore";
 
 const CheckAuth = (Component) => {
-
   const CheckAuthWrapper = (props) => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const store = useStore();
+    let storeUser = store.currentuser;
 
-    
-    useEffect(() => {
+    useLayoutEffect(() => {
       const storedUser = localStorage.getItem("user");
+
+      console.log({ storedUser });
+
       if (storedUser) {
-        try {
-          setIsLoggedIn(true);
-        } catch (error) {
-          console.error("Error parsing JSON:", error);
-        }
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
       }
     }, []);
 

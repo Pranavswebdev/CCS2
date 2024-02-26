@@ -6,6 +6,7 @@ import useStore from "@/store/projectStrore";
 import projectApi from "@/apis/projectApi ";
 import { Project } from "@/interfaces";
 import Skeleton from "@/components/skeleton";
+import CheckAuth from "@/utils/checkAuth";
 // import { Project } from "@/interfaces";
 
 const Project = () => {
@@ -48,4 +49,4 @@ const Project = () => {
   );
 };
 
-export default Project;
+export default   CheckAuth(Project) ;
