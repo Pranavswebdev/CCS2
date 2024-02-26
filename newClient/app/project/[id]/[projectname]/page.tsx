@@ -5,10 +5,9 @@ import TaskModal from "@/app/project/[id]/[projectname]/components/TaskModal";
 import taskApi from "@/apis/taskApi";
 import Toast from "@/components/Toast";
 import Skeleton from "@/components/skeleton";
-import CheckAuth from "@/utils/checkAuth";
-import { Task,IProjectDetails } from "@/interfaces";
+import { Task, IProjectDetails } from "@/interfaces";
 
-const ProjectDetails: React.FC<IProjectDetails>= ({ params }) => {
+const ProjectDetails: React.FC<IProjectDetails> = ({ params }) => {
   const [showModal, setShowModal] = React.useState<boolean>(false);
   const [currentTasks, setCurrentTasks] = React.useState<Task[]>([]);
   const { getTasks, updateTask, addTask } = taskApi();
@@ -16,10 +15,9 @@ const ProjectDetails: React.FC<IProjectDetails>= ({ params }) => {
   const [loading, setLoading] = useState<boolean>(true);
   console.log(params);
 
-
   useEffect(() => {
     getTasks(params.id)
-      .then((tasks:Task) => {
+      .then((tasks: Task) => {
         // store.setProjects(project);
         setCurrentTasks(tasks);
       })
@@ -28,17 +26,13 @@ const ProjectDetails: React.FC<IProjectDetails>= ({ params }) => {
       });
   }, []);
 
-
   const onStatusChangeHandler = (status: String, taskId: String) => {
     console.log({ status, taskId });
-
     updateTask(status, taskId).then(() => {
-
       setShowToast(true);
       setTimeout(() => {
         setShowToast(false);
       }, 3000);
-      
     });
   };
 
@@ -46,19 +40,19 @@ const ProjectDetails: React.FC<IProjectDetails>= ({ params }) => {
     title: String,
     description: String,
     projectId: String,
-    start_date:Date,
-    end_date:Date
+    start_date: Date,
+    end_date: Date
   ) => {
-
     console.log("Task Handler ");
-    
-    addTask(title, description, projectId,start_date,end_date).then((newtask) => {
-      // console.log(resp);
-      console.log({ newtask });
-      
-      setCurrentTasks([...currentTasks, newtask]);
 
-    });
+    addTask(title, description, projectId, start_date, end_date).then(
+      (newtask) => {
+        // console.log(resp);
+        console.log({ newtask });
+
+        setCurrentTasks([...currentTasks, newtask]);
+      }
+    );
   };
 
   if (loading) return <Skeleton />;

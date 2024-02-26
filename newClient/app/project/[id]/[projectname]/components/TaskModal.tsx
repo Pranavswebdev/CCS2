@@ -12,13 +12,11 @@ interface ITaskModal {
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
   projectId: String;
   addTaskHandler: (
-
     title: String,
     description: String,
     projectId: String,
-    start_date:Date,
-    end_date:Date
-
+    start_date: Date,
+    end_date: Date
   ) => void;
 }
 
@@ -28,31 +26,34 @@ const Modal: React.FC<ITaskModal> = ({
   projectId,
   addTaskHandler,
 }) => {
-  const [title, setTitle] = useState("");
-  // const [currentProjectId, setCurrentProjectId] = useState(projectId);
-  const [description, setDescription] = useState("");
-  const store = useStore();
+
 
   type Inputs = {
     title: string;
     description: string;
-    start_date:Date;
-    end_date:Date
+    start_date: Date;
+    end_date: Date;
   };
 
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
+    console.log(data, "submit data");
 
-    console.log(data,'submit data');
-
-    addTaskHandler(data.title, data.description,projectId,data.start_date,data.end_date );
-
+    addTaskHandler(
+      data.title,
+      data.description,
+      projectId,
+      data.start_date,
+      data.end_date
+    );
+    reset()
     setShowModal(false);
   };
 
@@ -121,13 +122,12 @@ const Modal: React.FC<ITaskModal> = ({
                     )}
                   </div>
 
-
                   <div className="mb-6">
                     <label className="block text-gray-700 text-sm font-bold mb-2">
-                    Start Date
+                      Start Date
                     </label>
                     <input
-                    type="date"
+                      type="date"
                       // onChange={(e) => setDescription(e.target.value)}
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                       {...register("start_date", {
@@ -140,13 +140,13 @@ const Modal: React.FC<ITaskModal> = ({
                       </span>
                     )}
                   </div>
-                  
+
                   <div className="mb-6">
                     <label className="block text-gray-700 text-sm font-bold mb-2">
                       End Date
                     </label>
                     <input
-                    type="date"
+                      type="date"
                       // onChange={(e) => setDescription(e.target.value)}
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                       {...register("end_date", {
@@ -160,22 +160,18 @@ const Modal: React.FC<ITaskModal> = ({
                     )}
                   </div>
 
-
                   <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
                     <button
                       className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                       type="button"
-                      onClick={() => setShowModal(false)}
+                      onClick={() =>{reset(); setShowModal(false);}}
                     >
                       Close
                     </button>
                     <button
                       className="bg-blue-500 text-white active:bg-blue-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                       type="submit"
-                      onClick={() => {
-                        // addTaskHandler(title, description, projectId);
-                        // setShowModal(false);
-                      }}
+
                     >
                       Save Task
                     </button>

@@ -45,7 +45,7 @@ export interface Task {
 
 export interface ITaskCard {
   task: Task;
-  onStatusChangeHandler: (value: boolean, taskId: number) => void;
+  onStatusChangeHandler: (value: string, taskId: number) => void;
 }
 
 export interface ModalProps {
@@ -72,5 +72,5 @@ export interface IProjectDetails {
 export type SwitchProps = {
   task: Task;
   name: number;
-  onStatusChangeHandler: (value: boolean, taskId: number) => void;
+  onStatusChangeHandler: (value: string, taskId: number) => void;
 };

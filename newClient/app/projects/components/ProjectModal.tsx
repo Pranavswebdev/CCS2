@@ -22,6 +22,7 @@ const Modal: React.FC<ModalProps> = ({ showModal, setShowModal }) => {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm<Inputs>();
 
@@ -41,6 +42,7 @@ const Modal: React.FC<ModalProps> = ({ showModal, setShowModal }) => {
       });
     });
     setShowModal(false);
+    reset()
   };
 
   return (
@@ -115,7 +117,7 @@ const Modal: React.FC<ModalProps> = ({ showModal, setShowModal }) => {
 
                   <button
                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    onClick={() => setShowModal(false)}
+                    onClick={() =>{ setShowModal(false);reset()}}
                   >
                     Close
                   </button>
