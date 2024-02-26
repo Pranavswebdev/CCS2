@@ -52,10 +52,10 @@ export const getProjects: RequestHandler = async (req, res,next) => {
 };
 
 export const createTask: RequestHandler = async (req, res,next) => {
-  const { title, description, projectId } = req.body;
+  const { title, description, projectId,end_date,start_date } = req.body;
 
   try {
-    const TaskSchema = new Task({ name: title, description, projectId });
+    const TaskSchema = new Task({ name: title, description, projectId,start_date,end_date });
     const newTask = await TaskSchema.save(TaskSchema);
     console.log({ newTask });
 

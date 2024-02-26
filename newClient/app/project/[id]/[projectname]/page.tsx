@@ -6,19 +6,20 @@ import taskApi from "@/apis/taskApi";
 import Toast from "@/components/Toast";
 import Skeleton from "@/components/skeleton";
 import CheckAuth from "@/utils/checkAuth";
-import { Task } from "@/interfaces";
+import { Task,IProjectDetails } from "@/interfaces";
 
-
-const ProjectDetails = ({ params }: any) => {
-  const [showModal, setShowModal] = React.useState(false);
-  const [currentTasks, setCurrentTasks] = React.useState([]);
+const ProjectDetails: React.FC<IProjectDetails>= ({ params }) => {
+  const [showModal, setShowModal] = React.useState<boolean>(false);
+  const [currentTasks, setCurrentTasks] = React.useState<Task[]>([]);
   const { getTasks, updateTask, addTask } = taskApi();
-  const [showToast, setShowToast] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [showToast, setShowToast] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
+  console.log(params);
+
 
   useEffect(() => {
     getTasks(params.id)
-      .then((tasks) => {
+      .then((tasks:Task) => {
         // store.setProjects(project);
         setCurrentTasks(tasks);
       })
@@ -27,31 +28,36 @@ const ProjectDetails = ({ params }: any) => {
       });
   }, []);
 
+
   const onStatusChangeHandler = (status: String, taskId: String) => {
     console.log({ status, taskId });
 
     updateTask(status, taskId).then(() => {
-      setShowToast(true);
 
+      setShowToast(true);
       setTimeout(() => {
         setShowToast(false);
       }, 3000);
+      
     });
   };
 
   const addTaskHandler = (
     title: String,
     description: String,
-    projectId: String
+    projectId: String,
+    start_date:Date,
+    end_date:Date
   ) => {
-    console.log("Task Handler ");
 
-    addTask(title, description, projectId).then((newtask) => {
+    console.log("Task Handler ");
+    
+    addTask(title, description, projectId,start_date,end_date).then((newtask) => {
       // console.log(resp);
       console.log({ newtask });
+      
       setCurrentTasks([...currentTasks, newtask]);
 
-      // store.addTask();
     });
   };
 
@@ -95,4 +101,4 @@ const ProjectDetails = ({ params }: any) => {
   );
 };
 
-export default  ProjectDetails ;
+export default ProjectDetails;

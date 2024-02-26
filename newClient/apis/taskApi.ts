@@ -1,15 +1,16 @@
+import { Task } from "@/interfaces";
 import axios from "../axios/axios";
 import authHeader from "../utils/auth_Header";
 
 const taskApi = () => {
-  const addTask = (title: String, description: String, projectId: String) => {
-    console.log({ title, description });
+  const addTask = (title: String, description: String, projectId: String,start_date:Date,end_date:Date) => {
+    console.log({ title, description,start_date,end_date });
 
     return new Promise(async (resolve, reject) => {
       try {
         const response = await axios.post(
           "/task",
-          { title, description, projectId },
+          { title, description, projectId,start_date,end_date },
           { headers: authHeader() }
         );
         resolve(response.data.newTask);
@@ -20,7 +21,7 @@ const taskApi = () => {
   };
 
   const getTasks = (projectId: String) => {
-    return new Promise(async (resolve, reject) => {
+    return new Promise<Task>(async (resolve, reject) => {
       try {
         const response = await axios.get("/task?projectId=" + projectId, {
           headers: authHeader(),
@@ -39,7 +40,6 @@ const taskApi = () => {
     return new Promise(async (resolve, reject) => {
       const data = {
         taskId: taskId,
-
         status: status,
       };
 

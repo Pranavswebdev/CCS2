@@ -12,9 +12,13 @@ interface ITaskModal {
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
   projectId: String;
   addTaskHandler: (
+
     title: String,
     description: String,
-    projectId: String
+    projectId: String,
+    start_date:Date,
+    end_date:Date
+
   ) => void;
 }
 
@@ -32,6 +36,8 @@ const Modal: React.FC<ITaskModal> = ({
   type Inputs = {
     title: string;
     description: string;
+    start_date:Date;
+    end_date:Date
   };
 
   const {
@@ -42,9 +48,10 @@ const Modal: React.FC<ITaskModal> = ({
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
 
-    addTaskHandler(data.title, data.description, projectId);
+    console.log(data,'submit data');
+
+    addTaskHandler(data.title, data.description,projectId,data.start_date,data.end_date );
 
     setShowModal(false);
   };
@@ -113,6 +120,47 @@ const Modal: React.FC<ITaskModal> = ({
                       </span>
                     )}
                   </div>
+
+
+                  <div className="mb-6">
+                    <label className="block text-gray-700 text-sm font-bold mb-2">
+                    Start Date
+                    </label>
+                    <input
+                    type="date"
+                      // onChange={(e) => setDescription(e.target.value)}
+                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                      {...register("start_date", {
+                        required: true,
+                      })}
+                    />
+                    {errors.start_date && (
+                      <span className="text-red-700 font-medium">
+                        This field is required
+                      </span>
+                    )}
+                  </div>
+                  
+                  <div className="mb-6">
+                    <label className="block text-gray-700 text-sm font-bold mb-2">
+                      End Date
+                    </label>
+                    <input
+                    type="date"
+                      // onChange={(e) => setDescription(e.target.value)}
+                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                      {...register("end_date", {
+                        required: true,
+                      })}
+                    />
+                    {errors.end_date && (
+                      <span className="text-red-700 font-medium">
+                        This field is required
+                      </span>
+                    )}
+                  </div>
+
+
                   <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
                     <button
                       className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"

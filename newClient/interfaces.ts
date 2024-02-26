@@ -63,6 +63,12 @@ export interface User {
   __v: number;
 }
 
+export interface IProjectDetails {
+ params: {_id: String;
+  projectname:String
+}
+}
+
 export type SwitchProps = {
   task: Task;
   name: number;
